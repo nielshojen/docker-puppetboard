@@ -1,4 +1,4 @@
-FROM python:2.7-alpine
+FROM python:3.6-alpine
 
 ENV PUPPET_BOARD_VERSION="1.0.0" \
     GUNICORN_VERSION="19.7.1" \
@@ -6,6 +6,7 @@ ENV PUPPET_BOARD_VERSION="1.0.0" \
     PUPPETBOARD_SETTINGS="docker_settings.py"
 
 RUN pip install puppetboard=="$PUPPET_BOARD_VERSION" gunicorn=="$GUNICORN_VERSION"
+RUN apk update && apk add nginx && chown -R www:www /var/lib/nginx
 
 EXPOSE $PUPPETBOARD_PORT
 

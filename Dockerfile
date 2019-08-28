@@ -12,7 +12,7 @@ EXPOSE $PUPPETBOARD_WEBPORT
 
 WORKDIR /var/www/puppetboard
 
-CMD gunicorn -b 0.0.0.0:${PUPPETBOARD_WEBPORT} --access-logfile=/dev/stdout puppetboard.app:app
+CMD gunicorn -b 0.0.0.0:${PUPPETBOARD_WEBPORT} puppetboard.app:app
 # Health check
 HEALTHCHECK --interval=10s --timeout=10s --retries=90 CMD \
   curl --fail -X GET localhost:8000\

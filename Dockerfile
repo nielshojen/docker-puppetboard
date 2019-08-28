@@ -4,13 +4,20 @@ ENV PUPPET_BOARD_VERSION="1.0.0"
 ENV GUNICORN_VERSION="19.7.1"
 ENV PUPPETBOARD_WEBPORT="8000"
 ENV PUPPETBOARD_SETTINGS="docker_settings.py"
+ENV ADMIN_USER="admin"
+ENV ADMIN_PASS="password"
 
 RUN apk update && \
     apk add nginx && \
     adduser -D -g 'www' www && chown -R www:www /var/lib/nginx && \
     mkdir /run/nginx && \
+    mkdir /etc/nginx/htpasswd && \
     apk add apache2-utils && \
     pip install puppetboard=="$PUPPET_BOARD_VERSION" gunicorn=="$GUNICORN_VERSION"
+
+ADD nginx.conf /etc/nginx.nginx.conf
+ADD default.conf /etc/nginx/conf.d/default.conf
+ADD puppetboard.conf /etc/nginx/conf.d/puppetboard.conf
 
 EXPOSE 80
 EXPOSE $PUPPETBOARD_WEBPORT
@@ -18,6 +25,7 @@ EXPOSE $PUPPETBOARD_WEBPORT
 WORKDIR /var/www/puppetboard
 
 CMD gunicorn -b 0.0.0.0:${PUPPETBOARD_WEBPORT} puppetboard.app:app
+CMD /usr/bin/htpasswd -b -c /etc/nginx/htpasswd/puppetboard ${ADMIN_USER} ${ADMIN_PASS}
 CMD /usr/sbin/nginx
 
 # Health check

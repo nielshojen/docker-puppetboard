@@ -6,7 +6,7 @@ ENV PUPPET_BOARD_VERSION="1.0.0" \
     PUPPETBOARD_SETTINGS="docker_settings.py"
 
 RUN pip install puppetboard=="$PUPPET_BOARD_VERSION" gunicorn=="$GUNICORN_VERSION"
-RUN apk update && apk add nginx && chown -R www:www /var/lib/nginx
+RUN apk update && apk add nginx && adduser -D -g 'www' www && chown -R www:www /var/lib/nginx
 
 EXPOSE $PUPPETBOARD_PORT
 

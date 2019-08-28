@@ -9,6 +9,7 @@ RUN apk update && \
     apk add nginx && \
     adduser -D -g 'www' www && chown -R www:www /var/lib/nginx && \
     mkdir /run/nginx && \
+    apk add apache2-utils && \
     pip install puppetboard=="$PUPPET_BOARD_VERSION" gunicorn=="$GUNICORN_VERSION"
 
 EXPOSE 80

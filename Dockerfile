@@ -18,15 +18,16 @@ RUN apk update && \
 ADD nginx.conf /etc/nginx.nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
 ADD puppetboard.conf /etc/nginx/conf.d/puppetboard.conf
+ADD run.sh /
+
+RUN chmod +x /run.sh
 
 EXPOSE 80
 EXPOSE $PUPPETBOARD_WEBPORT
 
 WORKDIR /var/www/puppetboard
 
-CMD gunicorn -b 0.0.0.0:${PUPPETBOARD_WEBPORT} puppetboard.app:app
-CMD /usr/bin/htpasswd -b -c /etc/nginx/htpasswd/puppetboard ${ADMIN_USER} ${ADMIN_PASS}
-CMD /usr/sbin/nginx
+CMD /run.sh
 
 # Health check
 HEALTHCHECK --interval=10s --timeout=10s --retries=90 CMD \

@@ -6,4 +6,4 @@ gunicorn -b 0.0.0.0:${PUPPETBOARD_WEBPORT} puppetboard.app:app &
 
 /usr/sbin/nginx
 
-sleep infinity
+/usr/bin/tail -F /var/log/nginx/access.log

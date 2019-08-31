@@ -8,12 +8,10 @@ if [[ ${ADMIN_USER} ]] && [[ ${ADMIN_PASS} ]] && [[ ! ${OAUTH2_PROXY_COOKIE_SECR
     /usr/bin/htpasswd -b -c /etc/nginx/htpasswd/puppetboard ${ADMIN_USER} ${ADMIN_PASS}
     /bin/echo "Starting nginx ..."
     /usr/sbin/nginx
-    /usr/bin/tail -F /var/log/nginx/access.log
 elif [[ -f "/etc/nginx/htpasswd/puppetboard" ]]; then
     /bin/echo "Found htpasswd file ..."
     /bin/echo "Starting nginx ..."
     /usr/sbin/nginx
-    /usr/bin/tail -F /var/log/nginx/access.log
 fi
 
 if [[ -f "/etc/oauth2_proxy.cfg" ]]; then

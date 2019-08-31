@@ -6,7 +6,7 @@ if [[ ${ADMIN_USER} ]] && [[ ${ADMIN_PASS} ]] && [[ ! ${OAUTH2_PROXY_COOKIE_SECR
     /usr/bin/htpasswd -b -c /etc/nginx/htpasswd/puppetboard ${ADMIN_USER} ${ADMIN_PASS}
     /usr/sbin/nginx
     /usr/bin/tail -F /var/log/nginx/access.log
-elif [[ -f "/etc/nginx/htpasswd/puppetboard" ]]
+elif [[ -f "/etc/nginx/htpasswd/puppetboard" ]]; then
     /usr/sbin/nginx
     /usr/bin/tail -F /var/log/nginx/access.log
 fi

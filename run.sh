@@ -22,3 +22,5 @@ elif [[ ${OAUTH2_PROXY_COOKIE_SECRET} ]] && [[ ${OAUTH2_PROXY_EMAIL_DOMAINS} ]] 
     /bin/echo "Starting oauth2_proxy with settings from env ..."
     /usr/local/bin/oauth2_proxy
 fi
+
+tail -f /dev/null

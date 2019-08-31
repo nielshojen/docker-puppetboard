@@ -23,7 +23,6 @@ RUN apk update && \
 ADD nginx.conf /etc/nginx.nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
 ADD puppetboard.conf /etc/nginx/conf.d/puppetboard.conf
-ADD oauth2_proxy.cfg /etc/oauth2_proxy.cfg
 ADD run.sh /
 
 RUN chmod +x /run.sh

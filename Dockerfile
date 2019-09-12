@@ -27,6 +27,7 @@ RUN chmod +x /run.sh
 
 EXPOSE 80
 EXPOSE 443
+EXPOSE 4180
 EXPOSE 8000
 
 WORKDIR /var/www/puppetboard

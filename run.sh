@@ -3,7 +3,7 @@
 /bin/echo "Starting Puppetboard ..."
 gunicorn -b 0.0.0.0:8000 puppetboard.app:app  &
 
-if [[ ${ADMIN_USER} ]] && [[ ${ADMIN_PASS} ]] && [[ ! ${OAUTH2_PROXY_COOKIE_SECRET} ]] && [[ ! -f "/etc/oauth2_proxy.cfg" ]]; then
+if [[ ${ADMIN_USER} ]] && [[ ${ADMIN_PASS} ]]; then
     /bin/echo "Generating htpasswd file from env ..."
     /usr/bin/htpasswd -b -c /etc/nginx/htpasswd/puppetboard ${ADMIN_USER} ${ADMIN_PASS}
     /bin/echo "Starting nginx ..."

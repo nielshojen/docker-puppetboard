@@ -4,8 +4,6 @@ ENV PUPPET_BOARD_VERSION="1.0.0"
 ENV GUNICORN_VERSION="19.7.1"
 ENV PUPPETBOARD_WEBPORT="8000"
 ENV PUPPETBOARD_SETTINGS="docker_settings.py"
-ENV ADMIN_USER="admin"
-ENV ADMIN_PASS="password"
 
 RUN apk update && \
     apk add nginx && \

@@ -16,7 +16,7 @@ RUN apk update && \
     rm /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1.tar.gz && \
     mv /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1/oauth2_proxy /usr/local/bin/oauth2_proxy && \
     rm -rf /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1 && \
-    pip install puppetboard=="$PUPPET_BOARD_VERSION" gunicorn=="$GUNICORN_VERSION"
+    pip install --no-cache-dir -r requirements-docker.txt
 
 ADD nginx.conf /etc/nginx.nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf

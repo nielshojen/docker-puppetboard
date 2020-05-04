@@ -5,8 +5,12 @@ ENV GUNICORN_VERSION="20.0.0"
 ENV PUPPETBOARD_WEBPORT="8000"
 ENV PUPPETBOARD_SETTINGS="docker_settings.py"
 
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app/
+
 RUN apk update && \
     apk add nginx && \
+    apk --update --no-cache add libc-dev binutils && \
     adduser -D -g 'www' www && chown -R www:www /var/lib/nginx && \
     mkdir /run/nginx && \
     mkdir /etc/nginx/htpasswd && \
@@ -15,8 +19,10 @@ RUN apk update && \
     tar -C /tmp -zxvf /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1.tar.gz && \
     rm /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1.tar.gz && \
     mv /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1/oauth2_proxy /usr/local/bin/oauth2_proxy && \
-    rm -rf /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1 && \
-    pip install --no-cache-dir -r requirements-docker.txt
+    rm -rf /tmp/oauth2_proxy-v4.0.0.linux-amd64.go1.12.1
+
+COPY requirements*.txt /usr/src/app/
+RUN pip install --no-cache-dir -r requirements-docker.txt
 
 ADD nginx.conf /etc/nginx.nginx.conf
 ADD default.conf /etc/nginx/conf.d/default.conf
